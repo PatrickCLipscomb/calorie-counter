@@ -12,7 +12,7 @@ import { CaloricFoodPipe } from './caloric-food.pipe';
   pipes: [CaloricFoodPipe],
   directives: [FoodComponent, NewFoodComponent, EditFoodComponent],
   template: `
-  <div class="container">
+  <div class="container row">
     <new-food (onSubmitNewFood)="createFood($event[0], $event[1], $event[2])"></new-food>
     <br>
     <label for="filter">Your Meals</label>
@@ -24,6 +24,9 @@ import { CaloricFoodPipe } from './caloric-food.pipe';
     <div class="grid grid-pad">
       <food-display *ngFor="#currentFood of foodList | caloricFood:filterFoods" [food]="currentFood" (click)="editFood(currentFood)" class="col-1-4"></food-display>
     </div>
+    <button (click)="seeTotalCalories()">See Total Calories for your meals</button>
+    <p>(button will break if meal calories are edited...typescript wont let me parseInt -__-)</p>
+    <h3 *ngIf="calorieFlag === true">{{seeTotalCalories()}}</h3>
   </div>
   <div class="container">
     <edit-food *ngIf="selectedFood" [food]="selectedFood"></edit-food>
@@ -34,20 +37,33 @@ export class FoodListComponent {
   public foodList: Food[];
   public selectedFood: Food;
   public onSelectedFood: EventEmitter<Food>;
+  public calorieFlag: boolean;
   public filterFoods: string = "all";
   constructor() {
     this.onSelectedFood = new EventEmitter();
+    this.calorieFlag = false;
   }
   editFood(clickedFood: Food): void {
     this.selectedFood = clickedFood;
     this.onSelectedFood.emit(clickedFood);
   }
-  createFood(name: string, details: string, calories: number): void {
+  createFood(name: string, details: string, calories: string): void {
+    var intCal = parseInt(calories);
     this.foodList.push(
-      new Food(name, details, calories, this.foodList.length)
+      new Food(name, details, intCal, this.foodList.length)
     );
   }
   onFilter(filterOption) {
     this.filterFoods = filterOption;
   }
+  seeTotalCalories() {
+    this.calorieFlag = true;
+    var calorieOutput = 0;
+    this.foodList.forEach(function(food) {
+      calorieOutput += food.calories;
+    });
+    setTimeout(() => { this.calorieFlag = false }, 5000);
+    return calorieOutput;
+  }
+
 }
