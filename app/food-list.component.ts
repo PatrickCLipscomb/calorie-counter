@@ -17,7 +17,7 @@ import { CaloricFoodPipe } from './caloric-food.pipe';
     <option value="lowCalorie">Low Calorie Foods</option>
     <option value="highCalorie">High Calorie Foods</option>
   </select>
-  <food-display *ngFor="#currentFood of foodList" [food]="currentFood" (click)="editFood(currentFood)"></food-display>
+  <food-display *ngFor="#currentFood of foodList | caloricFood:filterFoods" [food]="currentFood" (click)="editFood(currentFood)"></food-display>
   <edit-food *ngIf="selectedFood" [food]="selectedFood"></edit-food>
   <new-food (onSubmitNewFood)="createFood($event[0], $event[1], $event[2])"></new-food>
   `
@@ -39,7 +39,7 @@ export class FoodListComponent {
       new Food(name, details, calories, this.foodList.length)
     );
   }
-  onFilter(filterFoods) {
+  onFilter(filterOption) {
     this.filterFoods = filterOption;
   }
 }
