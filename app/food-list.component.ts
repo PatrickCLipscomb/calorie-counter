@@ -25,7 +25,6 @@ import { CaloricFoodPipe } from './caloric-food.pipe';
       <food-display *ngFor="#currentFood of foodList | caloricFood:filterFoods" [food]="currentFood" (click)="editFood(currentFood)" class="col-1-4"></food-display>
     </div>
     <button (click)="seeTotalCalories()">See Total Calories for your meals</button>
-    <p>(button will break if meal calories are edited...typescript wont let me parseInt -__-)</p>
     <h3 *ngIf="calorieFlag === true">{{seeTotalCalories()}}</h3>
   </div>
   <div class="container">
@@ -62,7 +61,7 @@ export class FoodListComponent {
     this.foodList.forEach(function(food) {
       calorieOutput += food.calories;
     });
-    setTimeout(() => { this.calorieFlag = false }, 5000);
+    setTimeout(() => { this.calorieFlag = false }, 2000);
     return calorieOutput;
   }
 

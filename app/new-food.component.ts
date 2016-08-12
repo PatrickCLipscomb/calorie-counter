@@ -10,7 +10,7 @@ import { Food } from './food.model';
   <input placeholder="Meal Name" #newMeal>
   <input placeholder="Meal Details" #newDetail>
   <input placeholder="Meal Calories" type="number" #newCalories>
-  <button (click)="addFood(newMeal, newDetail, newCalories)" class="btn btn-lg">Add</button>
+  <button (click)="addFood(newMeal, newDetail, newCalories)" class="btn btn-lg btn-success">Add</button>
   `
 })
 export class NewFoodComponent {
