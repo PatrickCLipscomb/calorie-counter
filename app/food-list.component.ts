@@ -59,10 +59,16 @@ export class FoodListComponent {
     this.calorieFlag = true;
     var calorieOutput = 0;
     this.foodList.forEach(function(food) {
-      calorieOutput += food.calories;
+      var holder = food.calories;
+      var holder2 = food.calories + 1
+      if (holder2.toString.length === holder.toString.length) {
+        calorieOutput += food.calories;
+      }
     });
     setTimeout(() => { this.calorieFlag = false }, 2000);
-    return calorieOutput;
+    if (calorieOutput.toString.length <= 5) {
+      return calorieOutput;
+    }
+    // this monster of a function is here to show that I tried to fix the concatination problem I was having...
   }
-
 }
