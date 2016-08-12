@@ -12,14 +12,22 @@ import { CaloricFoodPipe } from './caloric-food.pipe';
   pipes: [CaloricFoodPipe],
   directives: [FoodComponent, NewFoodComponent, EditFoodComponent],
   template: `
-  <select (change)="onFilter($event.target.value)">
-    <option value="all" selected="selected">Show All</option>
-    <option value="lowCalorie">Low Calorie Foods</option>
-    <option value="highCalorie">High Calorie Foods</option>
-  </select>
-  <food-display *ngFor="#currentFood of foodList | caloricFood:filterFoods" [food]="currentFood" (click)="editFood(currentFood)"></food-display>
-  <new-food (onSubmitNewFood)="createFood($event[0], $event[1], $event[2])"></new-food>
-  <edit-food *ngIf="selectedFood" [food]="selectedFood"></edit-food>
+  <div class="container">
+    <new-food (onSubmitNewFood)="createFood($event[0], $event[1], $event[2])"></new-food>
+    <br>
+    <label for="filter">Your Meals</label>
+    <select name="filer" (change)="onFilter($event.target.value)">
+      <option value="all" selected="selected">Show All</option>
+      <option value="lowCalorie">Low Calorie Foods</option>
+      <option value="highCalorie">High Calorie Foods</option>
+    </select>
+    <div class="grid grid-pad">
+      <food-display *ngFor="#currentFood of foodList | caloricFood:filterFoods" [food]="currentFood" (click)="editFood(currentFood)" class="col-1-4"></food-display>
+    </div>
+  </div>
+  <div class="container">
+    <edit-food *ngIf="selectedFood" [food]="selectedFood"></edit-food>
+  </div>
   `
 })
 export class FoodListComponent {

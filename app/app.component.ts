@@ -7,14 +7,13 @@ import { FoodListComponent } from './food-list.component';
   directives: [FoodListComponent],
   template: `
     <div class="container">
-      <h1>{{title}}</h1>
+      <h1>Counting Calories for Fun</h1>
       <food-list [foodList]="foods"></food-list>
     </div>
   `
 })
 export class AppComponent {
   public foods: Food[];
-  title: "Counting Calories for Fun"
   constructor(){
     this.foods = [
       new Food("Pizza", "what I have when I need comfort", 700, 0),
